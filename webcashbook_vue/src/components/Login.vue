@@ -3,10 +3,10 @@
         <div class="login_box">
             <!-- 头像图片区域 -->
             <div class="avatar_box">
-                <img src="../assets/logo.png">
+                <img src="../assets/github_logo.png">
             </div>
             <!-- 登录表单区域 -->
-            <el-form label-width="0px">
+            <el-form class="form_login" label-width="0px">
                 <el-form-item>
                     <el-input prefix-icon="el-icon-s-custom" placeholder="请输入用户名"></el-input>
                 </el-form-item>
@@ -72,6 +72,13 @@ img {
     border-radius: 50%;
     background-color: #eee;
 }
+
+.form_login {
+    width: 80%;
+    margin-top: 20%;
+    margin-left: 10%;
+}
+
 .cols_btn {
     text-align: center;
 }
