@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'rest_framework',#第三方djangorestframework框架APP
+
+    'cashbook',#自己的cashbook APP
 ]
 
 MIDDLEWARE = [
