@@ -6,21 +6,21 @@
                 <img src="../assets/github_logo.png">
             </div>
             <!-- 登录表单区域 -->
-            <el-form class="form_login" label-width="0px">
-                <el-form-item>
-                    <el-input prefix-icon="el-icon-s-custom" placeholder="请输入用户名"></el-input>
+            <el-form ref="loginFormRef" :model='loginForm' :rules="loginFormRules" class="form_login" label-width="0px">
+                <el-form-item prop="accoutname">
+                    <el-input v-model="loginForm.accoutname" prefix-icon="el-icon-s-custom" placeholder="请输入用户名"></el-input>
                 </el-form-item>
-                <el-form-item>
-                    <el-input prefix-icon="el-icon-lock" placeholder="请输入密码"></el-input>
+                <el-form-item prop="password">
+                    <el-input v-model="loginForm.password" prefix-icon="el-icon-lock" placeholder="请输入密码" type='password'></el-input>
                 </el-form-item>
 
                 <el-row>
                     <el-col class="cols_btn" :span="12">
-                        <el-button type="primary">登录</el-button>
+                        <el-button type="primary" @click="login">登录</el-button>
                     </el-col>
 
                     <el-col class="cols_btn" :span="12">
-                        <el-button type="info">重置</el-button>
+                        <el-button type="info" @click="resetLoginForm">重置</el-button>
                     </el-col>
                 </el-row>
 
@@ -34,7 +34,38 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+      loginForm: {
+        accoutname: '',
+        password: ''
+      },
+      loginFormRules: {
+        accoutname: [
+          { required: true, message: '请输入账户名称', trigger: 'blur' },
+          { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入账户密码', trigger: 'blur' },
+          { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    resetLoginForm () {
+      this.$refs.loginFormRef.resetFields()
+    },
+    login () {
+      this.$refs.loginFormRef.validate((valid) => {
+        console.log(valid)
+        if (!valid) return
+        this.$http.post('login', this.loginForm)
+      })
+    }
+  }
+}
 </script>
 
 <style scoped>
