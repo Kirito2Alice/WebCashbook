@@ -38,8 +38,8 @@ export default {
   data () {
     return {
       loginForm: {
-        accoutname: '',
-        password: ''
+        accoutname: 'kirito',
+        password: 'kirito628'
       },
       loginFormRules: {
         accoutname: [
@@ -58,10 +58,12 @@ export default {
       this.$refs.loginFormRef.resetFields()
     },
     login () {
-      this.$refs.loginFormRef.validate((valid) => {
+      this.$refs.loginFormRef.validate(async (valid) => {
         console.log(valid)
         if (!valid) return
-        this.$http.post('login', this.loginForm)
+        var res = await this.$http.post('login', this.loginForm)
+        console.log(res)
+        console.log(res.data)
       })
     }
   }

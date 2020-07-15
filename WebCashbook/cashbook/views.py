@@ -49,10 +49,12 @@ class usr_login(APIView):
             #取出其request.json中的phone和password
             accountname = parameter[get_accountname]
             password = parameter[get_password]
+            print(accountname,password)
             # 如果phone和password都不为空
             if accountname and password:
                 #通过在model创建用户表通过取出的手机号和密码模糊查询是否有这个手机号和对应的密码
-                inspect_account = register_models.account.objects.filter(account_name__contains=get_accountname, password__contains=get_password)
+                inspect_account = register_models.account.objects.filter(account_name=accountname, password=password)
+                print(inspect_account)
                 #判断inspect_phone是否为空
                 if  inspect_account:
                     inspect = True
@@ -73,7 +75,7 @@ class usr_login(APIView):
                     #通过上面sha256加密原字符串
                     get_token = _token_value(get_user_str)
                     # 根据请求的手机号密码查询出用户
-                    inster_token = models.account.objects.filter(account_name__contains=get_accountname, password__contains=password)
+                    inster_token = models.account.objects.filter(account_name=accountname, password=password)
                     # 取出对象（查询到的用户数据），这个for可以不用因为唯一性的数据，直接索引，懒得改了
                     value = inster_token[0]
                     value.token_value = get_token
