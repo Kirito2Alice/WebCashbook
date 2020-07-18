@@ -110,12 +110,9 @@ class usr_login(APIView):
                                         content_type="application/json,charset=utf-8")
  
             # 异常情况 公共方法
- 
             else:
                 return HttpResponse(get_Response_public.InvalidParameter(),
                                     content_type="application/json,charset=utf-8")
                 # 异常情况 公共方法
         else:
             return HttpResponse(get_Response_public.InvalidParameter(), content_type="application/json,charset=utf-8")
-    
-    

@@ -62,6 +62,11 @@ export default {
         console.log(valid)
         if (!valid) return
         var res = await this.$http.post('login', this.loginForm)
+        if (res.data.status !== 'true') return this.$message.error('账户或密码错误！登录失败...')
+        this.$message.success('登录成功！')
+        window.sessionStorage.setItem('token', res.data.token)
+        window.sessionStorage.setItem('name', res.data.name)
+        this.$router.push('home')
         console.log(res)
         console.log(res.data)
       })
