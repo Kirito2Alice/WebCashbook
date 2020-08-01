@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-class account(models.Model):
+class Account(models.Model):
     account_name = models.CharField(max_length=64)
     password = models.TextField(max_length=30, default='')
     token_value = models.TextField(max_length=100)

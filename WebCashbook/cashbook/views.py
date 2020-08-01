@@ -7,25 +7,24 @@ from . import serializers
 class AccountInfoView(ModelViewSet):
     # queryset是一个查询数据的查询集，存储这所有的数据库查询之后的数据
     queryset = models.Account.objects.all()
-    
     # serializer_class用来指定在当前的视图里面进行　序列化与反序列时使用的序列化器（串行器）
     serializer_class = serializers.AccountInfoSerializer'''
 
 # coding:utf-8
 import json
-from django.http import HttpResponse
-from rest_framework.views import APIView
-from . import models
 import datetime
 import hashlib
 
+from django.http import HttpResponse
+from rest_framework.views import APIView
+from . import models
 
-class usr_login(APIView):
- 
+
+# UsrLogin 
+class UsrLogin(APIView):
+
 # 定义请求方法为post，这种方法需要继承rest_framework的APIView
     def post(self, request):
-        #初始化登录的model
-        register_models = models
         # 取到request对象的body（json）
         parameter_json = request.body
         # json转字典
@@ -53,7 +52,7 @@ class usr_login(APIView):
             # 如果phone和password都不为空
             if accountname and password:
                 #通过在model创建用户表通过取出的手机号和密码模糊查询是否有这个手机号和对应的密码
-                inspect_account = register_models.account.objects.filter(account_name=accountname, password=password)
+                inspect_account = models.Account.objects.filter(account_name=accountname, password=password)
                 print(inspect_account)
                 #判断inspect_phone是否为空
                 if  inspect_account:
@@ -75,7 +74,7 @@ class usr_login(APIView):
                     #通过上面sha256加密原字符串
                     get_token = _token_value(get_user_str)
                     # 根据请求的手机号密码查询出用户
-                    inster_token = models.account.objects.filter(account_name=accountname, password=password)
+                    inster_token = models.Account.objects.filter(account_name=accountname, password=password)
                     # 取出对象（查询到的用户数据），这个for可以不用因为唯一性的数据，直接索引，懒得改了
                     value = inster_token[0]
                     value.token_value = get_token

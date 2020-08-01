@@ -10,4 +10,4 @@ class AccountInfoSerializer(serializers.ModelSerializer):
     '''
     class Meta:
         fields = ('id', 'account_name', 'password', 'created_at', 'token_value', 'status')
-        model = models.account
+        model = models.Account
